@@ -29,9 +29,10 @@ router.route("/get/:id").get(async (req, res) => {
 
 //route for deleting a relavant document using id
 router.route("/delete/:id").delete(async (req, res) => {
+    console.log(req.params.id);
     const { id } = req.params;
 
-    await Auth.findByIdAndRemove(id) //find the document by id and remove
+    await Auth.findByIdAndDelete(id) //find the document by id and remove
     .then(() => res.json({ message: "Successfully Deleted" }))
     .catch((error) => res.status(500).json({ success: false, error: error }));
 });
@@ -44,7 +45,6 @@ router.route("/update/:id").put(async (req, res) => {
     const {
         firstName,
         lastName,
-        emailAddress,
         nicNumber,
         password,
         telephoneNumber
@@ -54,7 +54,6 @@ router.route("/update/:id").put(async (req, res) => {
     await Auth.findByIdAndUpdate(id, {
         firstName,
         lastName,
-        emailAddress,
         nicNumber,
         password,
         telephoneNumber

@@ -23,7 +23,7 @@ const tailLayout = {
 };
 
 const Profile = () => {
-  const history = useNavigate;
+  const history = useNavigate();
 
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
@@ -35,9 +35,7 @@ const Profile = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-   
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -51,12 +49,11 @@ const Profile = () => {
             emailAddress: res.data.emailAddress,
             nicNumber: res.data.nicNumber,
           });
-          setFirstname(res.data.firstName)
-          setLastname(res.data.lastName)
-          setTelephonenumber(res.data.telephoneNumber)
-          setEmailaddress(res.data.emailAddress)
-          setNicnumber(res.data.nicNumber)
-
+          setFirstname(res.data.firstName);
+          setLastname(res.data.lastName);
+          setTelephonenumber(res.data.telephoneNumber);
+          setEmailaddress(res.data.emailAddress);
+          setNicnumber(res.data.nicNumber);
         })
         .catch((err) => alert(err));
     };
@@ -107,11 +104,13 @@ const Profile = () => {
     }
   };
 
-  const deleteData = async (id) => {
+  const deleteData = async () => {
     try {
       await axios.delete(`/api/auth/delete/${id}`);
       alert("Deleted Successfully");
-      history("/home");
+      setTimeout(() => {
+        history("/home");
+      }, 5000); //5s
     } catch (error) {
       alert(error);
     }
@@ -280,6 +279,7 @@ const Profile = () => {
                           }
                           onChange={(e) => setEmailaddress(e.target.value)}
                           value={emailAddress}
+                          disabled
                         />
                       </Form.Item>
                     </div>
